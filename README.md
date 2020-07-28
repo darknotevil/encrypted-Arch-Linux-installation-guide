@@ -5,7 +5,6 @@ This guide for setup Arch Linux with LVM LUKS disk encryption (excluding boot) i
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="../style.css">
-<title>Arch Linux install</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
