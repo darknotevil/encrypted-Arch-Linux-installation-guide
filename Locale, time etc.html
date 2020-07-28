@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Locale, time etc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+nvim /etc/locale.gen
+</p>
+<ol>
+<li>
+uncomment en_US.UTF ru_RU.UTF
+
+</ol>
+<p>
+locale-gen
+</p>
+
+<ol>
+<li>
+set timezone
+
+</ol>
+<p>
+ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+hwclock --systohc
+</p>
+
+<ol>
+<li>
+hostname
+
+</ol>
+<p>
+echo laptop-me &gt; /etc/hostname
+</p>
+
+<p>
+/etc/locale.conf
+LANG=en_US.UTF-8
+</p>
+
+</body>
+</html>

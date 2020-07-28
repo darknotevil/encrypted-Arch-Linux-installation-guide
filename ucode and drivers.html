@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>ucode and drivers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<ul>
+<li>
+nvidia 
+
+</ul>
+<p>
+pacman -S nvidia nvidia-settings
+</p>
+
+<ul>
+<li>
+(for intel )
+
+</ul>
+<p>
+pacman -S mesa
+pacman -S xf86-video-intel
+-- see archwiki page <a href="https://wiki.archlinux.org/index.php/intel_graphics">https://wiki.archlinux.org/index.php/intel_graphics</a>
+</p>
+
+<ol>
+<li>
+Hardware acceleration 
+
+</ol>
+<p>
+sudo pacman -S libva-utils vdpauinfo
+</p>
+
+<p>
+vainfo       -- show information about codecs
+vdpauinfo
+</p>
+
+<ul>
+<li>
+intel
+
+</ul>
+<p>
+sudo pacman -S libva-intel-driver libva-vdpau-driver libvdpau-va-gl 
+</p>
+
+<ul>
+<li>
+nvidia
+
+</ul>
+<p>
+Nvidia proprietary driver support only vdpau
+install translation layer
+<a href="https://wiki.archlinux.org/index.php/Hardware_video_acceleration">https://wiki.archlinux.org/index.php/Hardware_video_acceleration</a>
+sudo pacman -S libva-vdpau-driver
+</p>
+<ul>
+<li>
+Fix vsync
+
+</ul>
+<p>
+<a href="https://www.techticity.com/howto/how-to-fix-nvidia-vsync-on-linux-with-proprietary-drivers/#forcecomposition">https://www.techticity.com/howto/how-to-fix-nvidia-vsync-on-linux-with-proprietary-drivers/#forcecomposition</a>
+sudo nvidia-xconfig --no-ubb
+enable Force Full Composition PipeLine
+</p>
+
+
+<ol>
+<li>
+chromium with hardware acceleration
+  <span id="-add repo to /etc/pacman.conf"></span><strong id="add repo to /etc/pacman.conf">add repo to /etc/pacman.conf</strong>
+
+</ol>
+
+<p>
+[archlinuxcn]
+Server = <a href="https://repo.archlinuxcn.org/\(arch">https://repo.archlinuxcn.org/\)arch</a>
+</p>
+
+<p>
+For mirrors (mainly in China), see <a href="https://github.com/archlinuxcn/mirrorlist-repo.">https://github.com/archlinuxcn/mirrorlist-repo.</a>
+</p>
+
+<p>
+<span id="-Import PGP Keys:"></span><strong id="Import PGP Keys:">Import PGP Keys:</strong>
+sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring
+</p>
+
+<p>
+<span id="-install chromium-vaapi"></span><strong id="install chromium-vaapi">install chromium-vaapi</strong>
+sudo pacman -S chromium-vaapi
+</p>
+
+</body>
+</html>

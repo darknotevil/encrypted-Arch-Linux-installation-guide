@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Users</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<ol>
+<li>
+Change root password
+
+</ol>
+<p>
+passwd
+</p>
+
+<ol>
+<li>
+add user
+
+</ol>
+<p>
+useradd -m -g users -s /bin/zsh -G wheel wimm
+passwd wimm
+</p>
+
+<p>
+EDITOR=nvim visudo
+</p>
+<ol>
+<li>
+uncomment wheel group (line 82)
+
+<li>
+increase timeout sudo (line 9)
+
+</ol>
+<p>
+Defaults timestamp_timeout=15
+</p>
+
+</body>
+</html>

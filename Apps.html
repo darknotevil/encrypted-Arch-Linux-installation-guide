@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Apps</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<ol>
+<li>
+shell
+
+</ol>
+<p>
+sudo pacman -S zsh
+sudo pacman -S git
+sh -c "$(curl -fsSL <a href="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;">https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</a>
+mv .zshrc.pre-oh-my-zsh .zshrc
+</p>
+
+<ul>
+<li>
+plugins
+<pre sh>
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/MichaelAquilina/zsh-auto-notify.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/auto-notify
+</pre>
+
+</ul>
+
+<p>
+ <span id="-and logout"></span><strong id="and logout">and logout</strong>
+</p>
+
+<ol>
+<li>
+yay install
+
+</ol>
+<p>
+cd /tmp
+git clone <a href="https://aur.archlinux.org/yay.git">https://aur.archlinux.org/yay.git</a>
+cd yay
+makepkg -si
+</p>
+
+<ol>
+<li>
+color output and pacman eating
+
+</ol>
+<p>
+nvim /etc/pacman.conf
+Uncomment line 33 for color support
+add ILoveCandy
+</p>
+
+<p>
+yay --removemake --norebuild -c --save
+</p>
+
+
+<p>
+sudo pacman -S tilix net-tools dnsutils wget xclip networkmanager-openvpn man polkit libsecret usbutils udiskie ntfs-3g sshfs gnome-keyring
+</p>
+
+<ul>
+<li>
+tilix - terminal with custom shortcuts and tabs
+
+<li>
+net-tools: ifconfig hostname arp and etc
+
+<li>
+dnsutils - dig, nslookup
+
+<li>
+wget
+
+<li>
+xclip -- console clipboard
+
+<li>
+networkmanager-openvpn
+
+<li>
+man 
+
+<li>
+usbutils - lsusb and etc
+
+<li>
+udiskie - automount usb and etc
+
+<li>
+ntfs-3g  - ntfs support
+
+<li>
+sshfs - fuse and mount ssh as filesystem
+
+<li>
+gnome-keyring
+
+</ul>
+
+<ol>
+<li>
+archive
+
+<ul>
+<li>
+sudo pacman -S unrar unzip zip unp
+
+</ul>
+</ol>
+  
+<ol>
+<li>
+appeareance 
+
+</ol>
+<p>
+sudo pacman -S qt5ct lxappearance ttf-hack ttf-lato ttf-dejavu ttf-liberation noto-fonts neofetch rofi picom
+</p>
+<ul>
+<li>
+qt5ct - qt5 apps appereance
+
+<li>
+lxappearance - gtk apperance
+
+<li>
+ttf-hack; ttf-lato and etc - fonts
+
+<li>
+neofetch - system info
+
+<li>
+rofi - app switcher
+
+</ul>
+	 
+<p>
+add export to .xinit
+QT_QPA_PLATFORMTHEME=qt5ct 
+QT_AUTO_SCREEN_SCALE_FACTOR=0
+</p>
+
+
+<p>
+<span id="-themes"></span><strong id="themes">themes</strong>
+</p>
+<ul>
+<li>
+<a href="https://www.mate-look.org/p/1316887/">https://www.mate-look.org/p/1316887/</a>  --gtk theme and icons Blueberry
+  copy to /usr/share/themes
+
+<li>
+<a href="https://store.kde.org/p/1252328/">https://store.kde.org/p/1252328/</a> --mojave dark theme
+
+</ul>
+
+<ul>
+<li>
+ install KvantumManager
+
+</ul>
+<p>
+sudo pacman -S kvantum-qt5
+</p>
+
+<p>
+<span id="-java"></span><strong id="java">java</strong>
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel 
+</p>
+
+<p>
+<span id="-tty font"></span><strong id="tty font">tty font</strong>
+echo "FONT=Lat2-Terminux16" &gt; /etc/vconsole.conf
+</p>
+
+<ol>
+<li>
+notifications
+
+</ol>
+<p>
+sudo pacman -S libnotify 
+</p>
+
+<ol>
+<li>
+lockscreen 
+  yay -S betterlockscreen xkb-switch
+
+<ul>
+<li>
+xkb-switch for changink keyboard layout to us
+  betterlockscreen -u ~/.config/awesome/theme/wall.png
+
+</ul>
+</ol>
+  
+<p>
+  <span id="-enable on suspend"></span><strong id="enable on suspend">enable on suspend</strong>
+  wget service from repo <a href="https://github.com/pavanjadhaw/betterlockscreen/blob/master/system/betterlockscreen%40.service">https://github.com/pavanjadhaw/betterlockscreen/blob/master/system/betterlockscreen%40.service</a>
+</p>
+
+<p>
+  sudo mv betterlockscreen@.service /etc/systemd/system/
+  sudo systemctl enable betterlockscreen@wimm
+</p>
+  
+ 
+  
+<ol>
+<li>
+other
+ sudo pacman -S telegram-desktop zathura zathura-pdf-poppler unclutter  keepassxc mpv sxiv
+
+<ul>
+<li>
+telegram 
+
+</ul>
+<li>
+zathura; zathura-pdf-poppler - pdf reader
+
+<li>
+unclutter - hide mousepoint
+
+<li>
+keepassxc - password manager
+
+<li>
+mpv - video player
+
+<li>
+ranger - file manager
+
+<li>
+sxiv - image viewer
+ yay -S neovim-symlinks vim-plug
+  open neovim and :PlugUpdate
+
+</ol>
+ 
+<ol>
+<li>
+audio
+
+</ol>
+<p>
+sudo pacman -S pulseaudio-alsa pavucontrol
+</p>
+
+
+<ol>
+<li>
+touchpad 
+
+</ol>
+<p>
+sudo vim /etc/X11/xorg.conf.d/40-libinput.conf
+</p>
+
+<p>
+add
+</p>
+
+<p>
+	Option "Tapping" "on"
+	Option "ClickMethod" "clickfinger"
+</p>
+
+<p>
+getinfo
+xinput list-props 'SynPS/2 Synaptics TouchPad'
+</p>
+
+<ol>
+<li>
+network (laptop)
+
+</ol>
+<p>
+yay -S broadcom-wl-dkms
+</p>
+
+<ol>
+<li>
+file manager 
+
+<li>
+text
+
+</ol>
+<p>
+sudo pacman -S ranger highlight w3m 
+</p>
+<ul>
+<li>
+highlight - preview syntax highlight
+
+<li>
+w3m - image preview
+
+</ul>
+
+<ul>
+<li>
+gui
+
+</ul>
+<p>
+sudo pacman -S pcmanfm-qt
+</p>
+<ol>
+<li>
+chrome scripts
+
+</ol>
+<p>
+<a href="https://github.com/Taraflex/Back2stackoverflow">https://github.com/Taraflex/Back2stackoverflow</a>
+</p>
+
+</body>
+</html>

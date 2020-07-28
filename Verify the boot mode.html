@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Verify the boot mode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+If UEFI mode is enabled on an UEFI motherboard, Archiso will boot Arch Linux accordingly via systemd-boot. To verify this, list the efivars directory:
+</p>
+
+<ol>
+<li>
+ls /sys/firmware/efi/efivars
+
+</ol>
+<p>
+If the directory does not exist, the system may be booted in BIOS or CSM mode. Refer to your motherboard's manual for details.
+</p>
+
+</body>
+</html>

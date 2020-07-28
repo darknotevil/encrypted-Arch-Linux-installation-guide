@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Partitions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<ol>
+<li>
+using cfdisk
+
+</ol>
+<p>
+cfdisk /dev/nvme0n1
+</p>
+
+<ol>
+<li>
+using fdisk on empty drive
+
+</ol>
+<p>
+fdisk -l
+fdisk /dev/sda
+</p>
+
+<p>
+p - current partiton table
+g - create gpt table
+</p>
+
+<p>
+n +300M --efi
+t - select type
+t 1
+</p>
+
+<p>
+n +400M -- boot
+</p>
+
+<p>
+n t 30 -Linux lvm
+</p>
+
+<p>
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+</p>
+
+<p>
+cryptsetup luksFormat /dev/sda3
+cryptsetup open --type luks /dev/sda3 lvm
+</p>
+<ol>
+<li>
+use data align to sync with ssd/hdd allign 
+
+</ol>
+<p>
+<a href="https://www.redhat.com/archives/linux-lvm/2010-March/msg00031.html">https://www.redhat.com/archives/linux-lvm/2010-March/msg00031.html</a>
+</p>
+<ul>
+<li>
+Check physical block size
+    cat /sys/block/nvme0n1/queue/physical_block_size
+
+<li>
+Verify that your SSD device is naturally aligned:
+    cat /sys/block/nvme0n1/alignment_offset
+
+</ul>
+   
+<p>
+pvcreate --dataalignment 1m /dev/mapper/lvm
+</p>
+<ol>
+<li>
+Create the volume group named MyVolGroup (or whatever you want), adding the previously created physical volume to it:
+
+</ol>
+<p>
+vgcreate volgroup0 /dev/mapper/lvm
+</p>
+
+<p>
+lvcreate -L 26G volgroup0 -n lv_root
+</p>
+<ol>
+<li>
+для работа гибернации swap не меньше размера физической оператвной памяти?
+
+</ol>
+<p>
+lvcreate -l 100%FREE volgroup0 -n lv_swap
+</p>
+
+<p>
+mkfs.ext4 /dev/volgroup0/lv_root
+mkswap /dev/volgroup0/lv_swap
+swapon /dev/volgroup0/lv_swap
+</p>
+
+<p>
+mount /dev/volgroup0/lv_root /mnt
+mkdir /mnt/boot
+mount /dev/sda2 /mnt/boot
+</p>
+
+<p>
+mkdir /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+</p>
+
+<p>
+mkdir /mnt/etc
+genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
+</p>
+
+</body>
+</html>

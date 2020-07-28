@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>kvm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div id="kvm install"><h2 id="kvm install" class="header"><a href="#kvm install">kvm install</a></h2></div>
+<p>
+sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat iptables ebtables edk2-ovmf dmidecode
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+</p>
+
+<ul>
+<li>
+Enable normal user account access
+
+</ul>
+<p>
+Open the file /etc/libvirt/libvirtd.conf for editing.
+</p>
+
+<p>
+sudo vi /etc/libvirt/libvirtd.conf
+<em>Set the UNIX domain socket group ownership to libvirt, (around line 85)</em>
+</p>
+
+<p>
+unix_sock_group = "libvirt"
+<em>Set the UNIX socket permissions for the R/W socket (around line 102)</em>
+</p>
+
+<p>
+unix_sock_rw_perms = "0770"
+<em>Add your user account to libvirt group.</em>
+</p>
+
+<p>
+sudo usermod -a -G libvirt $(whoami)
+newgrp libvirt
+<em>Restart libvirt daemon.</em>
+sudo systemctl restart libvirtd.service 
+</p>
+
+<div id="change default path"><h2 id="change default path" class="header"><a href="#change default path">change default path</a></h2></div>
+<p>
+<a href="https://dwaves.org/2015/07/20/linux-kvm-how-to-change-default-location-where-libvirt-vm-images-are-saved/">https://dwaves.org/2015/07/20/linux-kvm-how-to-change-default-location-where-libvirt-vm-images-are-saved/</a>
+utility which comes with libvirt package.
+</p>
+
+<p>
+First, run the following command to dump XML definition of the default storage pool.
+</p>
+
+<p>
+$ virsh pool-dumpxml default &gt; pool.xml
+Open this XML file with a text editor, and change &lt;path&gt; element from /var/lib/libvirt/images to a new location.
+Remove the current default pool.
+</p>
+
+<p>
+$ virsh pool-destroy default
+Pool default destroyed
+Now create a new storage pool based on the updated XML file.
+</p>
+
+<p>
+$ virsh pool-create pool.xml
+Pool default created from pool.xml
+At this point, a default pool has been changed to a new location, and is ready for use.
+</p>
+
+<div id="kvm backup"><h2 id="kvm backup" class="header"><a href="#kvm backup">kvm backup</a></h2></div>
+<p>
+cd /home/wimm/vm/Machines/vm_pool
+</p>
+
+<ol>
+<li>
+Use multicore to compress
+
+</ol>
+<p>
+tar -I pigz -cf maossierra.tar.gz macOSsierra.qcow2
+chown wimm macOSsierra.tar.gz
+cp /etc/libvirt/qemu/macOS-Simple-KVM.xml ./
+chown wimm macOS-Simple-KVM.xml
+</p>
+
+
+<ol>
+<li>
+tar multicore
+
+</ol>
+<p>
+The three tools for parallel compression I will use today, all can be easy installed via apt install under Debian/Ubuntu based GNU/Linux distributions, here are the commands and corresponding apt package name:
+</p>
+
+<p>
+gz:   pigz
+bz2: pbzip2
+xz:   pxz
+Originally commands to tar with compression will be look like:
+</p>
+
+<p>
+gz:   tar -czf tarball.tgz files
+bz2: tar -cjf tarball.tbz files
+xz:   tar -cJf tarball.txz files
+The multi-thread version:
+</p>
+
+<p>
+gz:   tar -I pigz -cf tarball.tgz files
+bz2: tar -I pbzip2 -cf tarball.tbz files
+xz:   tar -I pxz -cf tarball.txz files
+I am going to use Linux kernel v3.18.6 as compression example, threw the whole directory on the ramdisk to compress them, and then compare the difference!
+(PS: CPU is Intel(R) Xeon(R) CPU E3-1220 V2 @ 3.10GHz, 4 cores, 4 threads, 16GB ram)
+<a href="https://www.peterdavehello.org/2015/02/use-multi-threads-to-compress-files-when-taring-something/">https://www.peterdavehello.org/2015/02/use-multi-threads-to-compress-files-when-taring-something/</a>
+</p>
+
+</body>
+</html>

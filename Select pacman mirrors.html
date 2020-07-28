@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Select pacman mirrors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+vim /etc/pacman.d/mirrorlist
+</p>
+
+<ol>
+<li>
+autogenerate mirrorlist
+
+</ol>
+<p>
+reflector --verbose --latest 50 --country Russia --country Netherlands --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+</p>
+
+</body>
+</html>

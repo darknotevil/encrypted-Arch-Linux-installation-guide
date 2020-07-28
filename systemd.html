@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>systemd</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+We can create service for specific user in config folder
+vi ~/.config/systemd/user/rclonesync.service
+</p>
+
+<ol>
+<li>
+Stop, start, status, reload
+
+</ol>
+<p>
+systemctl --user status rclonesync
+systemctl --user start rclonesync
+systemctl --user daemon-reload
+</p>
+
+<ol>
+<li>
+manage timers
+
+</ol>
+<p>
+systemctl --user list-timers
+</p>
+
+</body>
+</html>

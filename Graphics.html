@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Graphics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+pacman -S xorg-server xorg-xinit xorg-apps
+pacman -S awesome xterm
+</p>
+
+<ol>
+<li>
+config startx and xinit
+
+</ol>
+<p>
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+</p>
+
+<p>
+delete last lines
+add 
+</p>
+
+<ol>
+<li>
+disable bell
+
+</ol>
+<p>
+xet -b
+</p>
+<ol>
+<li>
+Launch awesome
+
+</ol>
+<p>
+exec awesome
+</p>
+	
+<ol>
+<li>
+startx :) (xinit for root)	
+
+</ol>
+<p>
+startx	
+</p>
+
+
+<ol>
+<li>
+autostart startx
+
+</ol>
+<p>
+for bash add to ~/.bash_profile
+for zsh add to ~/.zprofile
+</p>
+
+<p>
+if systemctl -q is-active graphical.target &amp;&amp; [[ ! \(DISPLAY &amp;&amp; \)XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi
+</p>
+
+<ol>
+<li>
+tearing intel
+
+</ol>
+<p>
+/etc/X11/xorg.conf.d/20-intel.conf
+</p>
+
+<p>
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+</p>
+
+<p>
+  Option "TearFree" "true"
+EndSection
+</p>
+
+</body>
+</html>

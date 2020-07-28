@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Install system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+<span id="-install base system"></span><strong id="install base system">install base system</strong>
+	pacstrap -i /mnt base
+</p>
+
+<p>
+arch-chroot /mnt
+</p>
+
+<p>
+<span id="-install kernel and headers (lts or normal)"></span><strong id="install kernel and headers (lts or normal)">install kernel and headers (lts or normal)</strong>
+</p>
+
+<p>
+<em>optional</em>
+  pacman -S zsh
+  zsh
+pacman -S linux-lts linux-lts-headers
+pacman -S linux linux-headers
+</p>
+
+<p>
+pacman -S base-devel openssh
+pacman -S networkmanager wpa_supplicant wireless_tools netctl network-manager-applet linux-firmware dialog
+systemctl enable NetworkManager
+</p>
+
+<p>
+pacman -S lvm2
+pacman -S neovim
+</p>
+
+<p>
+<span id="-Enable crypt support in hooks"></span><strong id="Enable crypt support in hooks">Enable crypt support in hooks</strong>
+nvim /etc/mkinitcpio.conf
+scroll to line 52; add between block and filesystem 
+"encrypt lvm2"
+</p>
+
+<p>
+mkinitcpio -p linux-lts
+mkinitcpio -p linux
+</p>
+
+</body>
+</html>
